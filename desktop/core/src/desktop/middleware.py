@@ -132,7 +132,7 @@ class ClusterMiddleware(object):
 
     request.fs = None
 
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
       request.fs = fsmanager.get_filesystem(request.fs_ref)
 
       if request.fs is not None:
@@ -308,7 +308,7 @@ class LoginAndPermissionMiddleware(object):
       return None
 
     # If user is logged in, check that he has permissions to access the app
-    if request.user.is_active and request.user.is_authenticated():
+    if request.user.is_active and request.user.is_authenticated:
       AppSpecificMiddleware.augment_request_with_app(request, view_func)
 
       # Until Django 1.3 which resolves returning the URL name, just do a match of the name of the view

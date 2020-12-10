@@ -79,7 +79,8 @@ class ProxyFS(object):
       if not filebrowser_action:
         return True
       user = rewrite_user(User.objects.get(username=self.getuser()))
-      return user.is_authenticated() and user.is_active and (is_admin(user) or not filebrowser_action or user.has_hue_permission(action=filebrowser_action, app="filebrowser"))
+      user_perm = is_admin(user) or not filebrowser_action or user.has_hue_permission(action=filebrowser_action, app="filebrowser")
+      return user.is_authenticated and user.is_active and user_perm
     except User.DoesNotExist:
       LOG.exception('proxyfs.has_access()')
       return False
